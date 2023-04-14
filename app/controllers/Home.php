@@ -11,8 +11,11 @@ class Home extends Controller
 
     public function index()
     {
-        $data = $this->model_home->getAll();
-        $detail = $this->model_home->getById(0);
+        // $data = $this->model_home->getAll();
+
+        $data = $this->model_home->get();
+
         $this->render('home/index', $data);
+
     }
 }

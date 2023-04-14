@@ -1,40 +1,35 @@
 <?php
 
+/**
+ * Singleton
+ * @author Firstname Lastname
+ * @version 1.0
+ * */
 class Singleton
 {
-    private static $instance = null;
+    private static $instance = null, $conn = null;
 
-    private function __construct()
+    private function __construct($config)
     {
         // Kết nối database
         try {
 
-            define('_ISA_DB_USER', 'sa');
-            define('_ISA_DB_PASSWORD', 'aBc@123!qt');
-            define('_ISA_DB_NAME', 'isa-qlbh');
-            define('_ISA_SERVER_NAME', '10.86.0.40');
-
             // Cấu hình dns
-            $conn =  new PDO("sqlsrv:Server={" . _ISA_SERVER_NAME . "};Database={" . _ISA_DB_NAME . "};", _ISA_DB_USER, _ISA_DB_PASSWORD);
-            
-            var_dump_r($conn);
+            $conn =  new PDO("sqlsrv:Server={" . $config['host'] . "};Database={" . $config['db'] . "};", $config['user'], $config['pass']);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            self::$conn = $conn;
         } catch (Exception $exception) {
             $mess = $exception->getMessage();
-
-            if (preg_match('/Access denied for user/', $mess)) {
-                die('Lỗi kết nối CSDL');
-            }
-
-            if (preg_match('/Unknown database/', $mess)) {
-                die('Không tìm thấy CSDL');
-            }
+            App::$app->loadError('database', ['error' => $mess]);
+            die();
         }
     }
 
-    public static function getInstance()
+    public static function getInstance($config)
     {
         if (is_null(self::$instance)) {
-            self::$instance = new Singleton();
+            new Singleton($config);
+            self::$instance = self::$conn;
         }
         return self::$instance;
     }

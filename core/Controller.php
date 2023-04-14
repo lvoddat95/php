@@ -1,13 +1,21 @@
-<?php 
+<?php
 
-class Controller 
+/**
+ * Base Controller
+ * @author Firstname Lastname
+ * @version 1.0
+ * */
+class Controller
 {
-    public function __construct(){}
+    public function __construct()
+    {
+    }
 
-    public function model($model){
-        if(file_exists(_DIR_ROOT . '/app/models/' . $model . '.php')){
+    public function model($model)
+    {
+        if (file_exists(_DIR_ROOT . '/app/models/' . $model . '.php')) {
             require_once _DIR_ROOT . '/app/models/' . $model . '.php';
-            if(class_exists($model)){
+            if (class_exists($model)) {
                 $model = new $model();
                 return $model;
             }
@@ -16,12 +24,11 @@ class Controller
     }
 
 
-    public function render($view, $data=[]){
+    public function render($view, $data = [])
+    {
         extract($data);
-        if(file_exists(_DIR_ROOT . '/app/views/' . $view . '.php')){
+        if (file_exists(_DIR_ROOT . '/app/views/' . $view . '.php')) {
             require_once _DIR_ROOT . '/app/views/' . $view . '.php';
         }
     }
 }
-
-?>

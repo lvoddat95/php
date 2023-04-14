@@ -8,7 +8,7 @@
 </head>
 <body>
     <?php 
-    // var_dump_r($data);
+    var_dump_r($data);
     ?>
 </body>
 </html>
