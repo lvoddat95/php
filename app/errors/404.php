@@ -1,1 +1,1 @@
-<h1 class="text-center">404 - Không tìm thấy trang</h1>
+<h1 style="text-align: center">Page Not Found</h1>

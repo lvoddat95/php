@@ -1,32 +1,36 @@
 <?php
-
-/**
- * Base Route
- * @author Firstname Lastname
- * @version 1.0
- * */
-class Route
-{
-
-    function handleRoute($url)
-    {
+class Route{
+    private $__keyRoute = null;
+    function handleRoute($url){
         global $routes;
         unset($routes['default_controller']);
 
         $url = trim($url, '/');
 
-        if (empty($url)) $url = '/';
+        if (empty($url)){
+            $url = '/';
+        }
 
         $handleUrl = $url;
-        if (!empty($routes)) {
-            foreach ($routes as $key => $value) {
-                if (preg_match('~' . $key . '~is', $url)) {
-                    $handleUrl = preg_replace('~' . $key . '~is', $value, $url);
+        if (!empty($routes)){
+            foreach ($routes as $key=>$value){
+                if (preg_match('~'.$key.'~is', $url)){
+                    $handleUrl = preg_replace('~'.$key.'~is', $value, $url);
+                    $this->__keyRoute = $key;
                 }
-                // echo $handleUrl;
-                // $handleUrl = str_replace($key, $value, $handleUrl);
             }
         }
+
         return $handleUrl;
+    }
+
+    public function getUri(){
+        return $this->__keyRoute;
+    }
+
+    static public function getFullUrl(){
+        $uri = App::$app->getUrl();
+        $url = _WEB_ROOT.$uri;
+        return $url;
     }
 }
