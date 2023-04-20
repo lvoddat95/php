@@ -9,6 +9,7 @@ class Database{
     function __construct(){
         global $db_config;
         $this->__conn = Connection::getInstance($db_config);
+
     }
 
     //Thêm dữ liệu

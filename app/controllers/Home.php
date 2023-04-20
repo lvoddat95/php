@@ -1,14 +1,17 @@
 <?php
-class Home extends Controller{
+class Home extends Controller
+{
 
     public $province, $data;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->province = $this->model('HomeModel');
     }
 
-    public function index(){
-//        $data = $this->province->getListProvince();
+    public function index()
+    {
+        //        $data = $this->province->getListProvince();
 //        echo '<pre>';
 //        print_r($data);
 //        echo '</pre>';
@@ -25,30 +28,33 @@ class Home extends Controller{
             'create_at' => date('Y-m-d H:i:s')
         ];
 
-//        $check = $this->db->table('users')->insert($data);
+        //        $check = $this->db->table('users')->insert($data);
 //        var_dump($check);
 
-//        $id = $this->province->insertUsers($data);
+        //        $id = $this->province->insertUsers($data);
 //        echo $id;
 //        $data = $this->db->table('province')->get();
 //        echo '<pre>';
 //        print_r($data);
 //        echo '</pre>';
-         //Session::flash('msg', 'Thêm dữ liệu thành công');
+        //Session::flash('msg', 'Thêm dữ liệu thành công');
 //         $msg = Session::flash('msg');
 //         echo $msg;
+        $this->render('home/index');
 
     }
 
-    public function get_user(){
+    public function get_user()
+    {
         $this->data['msg'] = Session::flash('msg');
         $this->render('users/add', $this->data);
     }
 
-    public function post_user(){
+    public function post_user()
+    {
         $userId = 20;
         $request = new Request();
-        if ($request->isPost()){
+        if ($request->isPost()) {
             /*Set rules*/
             $request->rules([
                 'fullname' => 'required|min:5|max:30',
@@ -76,7 +82,7 @@ class Home extends Controller{
             ]);
 
             $validate = $request->validate();
-            if (!$validate){
+            if (!$validate) {
                 Session::flash('msg', 'Đã có lỗi xảy ra. Vui lòng kiểm tra lại');
             }
 
@@ -86,9 +92,11 @@ class Home extends Controller{
         $response->redirect('home/get_user');
     }
 
-    public function check_age($age){
+    public function check_age($age)
+    {
 
-        if ($age>=20) return true;
+        if ($age >= 20)
+            return true;
         return false;
     }
 }

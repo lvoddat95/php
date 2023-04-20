@@ -32,10 +32,12 @@ class Controller{
             if (file_exists(_DIR_ROOT.'/app/views/'.$view.'.php')){
                 require_once _DIR_ROOT.'/app/views/'.$view.'.php';
             }
-
         }else{
             if (file_exists(_DIR_ROOT.'/app/views/'.$view.'.php')){
-                $contentView = file_get_contents(_DIR_ROOT.'/app/views/'.$view.'.php');
+                $contentView = file_get_contents(_DIR_ROOT.'/app/views/layouts/header.php');
+                $contentView .= file_get_contents(_DIR_ROOT.'/app/views/'.$view.'.php');
+                $contentView .= file_get_contents(_DIR_ROOT.'/app/views/layouts/footer.php');
+
             }
 
             $template =  new Template();

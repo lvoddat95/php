@@ -8,7 +8,8 @@ class Connection{
         try{
 
             //Cấu hình dsn
-            $dsn = 'mysql:dbname='.$config['db'].';host='.$config['host'];
+            // $dsn = 'mysql:dbname='.$config['db'].';host='.$config['host'];
+            $dsn = "sqlsrv:Server={" . $config['host'] . "};Database={" . $config['db'] . "};";
 
             //Cấu hình $options
             /*
